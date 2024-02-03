@@ -3,7 +3,7 @@
 |Description ||
 |Source      |https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/master/ContinousSavingPlugin.js|
 |Author      |Yakov Litvin|
-|Version     |0.1.0|
+|Version     |0.2.0|
 |Browsers    |Up to date support can be checked [[here|https://caniuse.com/?search=showOpenFilePicker]], as of 02.2024 it's Chromium-based desktop browsers and Edge|
 |Contact     |Create an [[issue|https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/issues]] or start a new thread in the [[Google Group|https://groups.google.com/g/tiddlywikiclassic/]]|
 |License     |[[MIT|https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/master/LICENSE]]|
@@ -47,6 +47,36 @@ config.extensions.fileIO = !window.showOpenFilePicker ? null : {
 	},
 
 	save: async function(id, content) {
+		const result = { id, ok: false }
+
+		if(!this.fileHandles[id]) {
+			// load handler is preferrable, but won't work for creating a file
+			const handle = await window.showSaveFilePicker(this.pickerOptions)
+			if(handle) {
+				this.fileHandles[id] = { save: handle }
+			} else {
+				result.reason = 'cancelled by user'
+				return result
+			}
+		}
+
+		if(!this.fileHandles[id]) {
+			result.reason = `after picking, fileHandles[id] is still ${
+				this.fileHandles[id]} (id is ${id})`
+			return result
+		}
+
+		const handle = this.fileHandles[id].load || this.fileHandles[id].save
+		const writable = await handle.createWritable()
+		if(!writable) {
+			result.reason = `writable (for id ${id}) is ${writable}`
+			return result
+		}
+		await writable.write(content)
+		await writable.close()
+		result.ok = true
+		result.content = content
+		return result
 	}
 }
 //}}}
