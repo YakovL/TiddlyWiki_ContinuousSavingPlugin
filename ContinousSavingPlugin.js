@@ -1,9 +1,9 @@
 /***
 |Name        |ContinousSavingPlugin|
-|Description ||
+|Description |Makes loading and saving work via just one file picking per session|
 |Source      |https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/master/ContinousSavingPlugin.js|
 |Author      |Yakov Litvin|
-|Version     |0.3.0|
+|Version     |0.4.0|
 |Browsers    |Up to date support can be checked [[here|https://caniuse.com/?search=showOpenFilePicker]], as of 02.2024 it's Chromium-based desktop browsers and Edge|
 |~CoreVersion|2.10.0|
 |Contact     |Create an [[issue|https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/issues]] or start a new thread in the [[Google Group|https://groups.google.com/g/tiddlywikiclassic/]]|
@@ -93,6 +93,17 @@ if(window.tw && tw.io && tw.io.loadFile && !tw.io.orig_nonContinuous_loadFile) {
 		}
 
 		return tw.io.orig_nonContinuous_loadFile(fileUrl, newCallback)
+	}
+
+	tw.io.orig_nonContinuous_asyncSaveFile = tw.io.asyncSaveFile
+	tw.io.asyncSaveFile = function(fileUrl, content, callback) {
+		const newCallback = function(result, details) {
+			if(result) callback(result, details)
+			else config.extensions.fileIO.save(fileUrl, content)
+				.then(result => callback(result.ok, result))
+		}
+
+		return tw.io.orig_nonContinuous_asyncSaveFile(fileUrl, content, newCallback)
 	}
 }
 //}}}
