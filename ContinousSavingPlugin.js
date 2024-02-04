@@ -1,7 +1,7 @@
 /***
 |Name        |ContinousSavingPlugin|
 |Description |Makes loading and saving work via just one file picking per session|
-|Source      |https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/master/ContinousSavingPlugin.js|
+|Source      |https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/main/ContinousSavingPlugin.js|
 |Author      |Yakov Litvin|
 |Version     |0.4.0|
 |Browsers    |Up to date support can be checked [[here|https://caniuse.com/?search=showOpenFilePicker]], as of 02.2024 it's Chromium-based desktop browsers and Edge|
