@@ -1,13 +1,13 @@
 /***
-|Name        |ContinousSavingPlugin|
+|Name        |ContinuousSavingPlugin|
 |Description |Makes loading and saving work via just one file picking per session|
-|Source      |https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/main/ContinousSavingPlugin.js|
+|Source      |https://github.com/YakovL/TiddlyWiki_ContinuousSavingPlugin/blob/main/ContinuousSavingPlugin.js|
 |Author      |Yakov Litvin|
 |Version     |0.4.0|
 |Browsers    |Up to date support can be checked [[here|https://caniuse.com/?search=showOpenFilePicker]], as of 02.2024 it's Chromium-based desktop browsers and Edge|
 |~CoreVersion|2.10.0|
-|Contact     |Create an [[issue|https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/issues]] or start a new thread in the [[Google Group|https://groups.google.com/g/tiddlywikiclassic/]]|
-|License     |[[MIT|https://github.com/YakovL/TiddlyWiki_ContinousSavingPlugin/blob/master/LICENSE]]|
+|Contact     |Create an [[issue|https://github.com/YakovL/TiddlyWiki_ContinuousSavingPlugin/issues]] or start a new thread in the [[Google Group|https://groups.google.com/g/tiddlywikiclassic/]]|
+|License     |[[MIT|https://github.com/YakovL/TiddlyWiki_ContinuousSavingPlugin/blob/master/LICENSE]]|
 ***/
 //{{{
 config.extensions.fileIO = !window.showOpenFilePicker ? null : {
